@@ -8,7 +8,9 @@ from src.FirePackage import fdflect
 datFiles=glob.glob('Data/*.dat')
 
 st.header("Concrete deck exposed to uniformly distributed fire")
-
+st.markdown(''' 
+    This page allows you to estimate the deflection for a span fully exposed to fire. You can set the time the fire have lasted and select the datasets (different cross sections) to be used.
+    ''')
 st.divider()
 st.write('Maximum deflection as a function of span. Fire assumed under full span')
 

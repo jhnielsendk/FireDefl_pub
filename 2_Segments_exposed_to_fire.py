@@ -6,7 +6,11 @@ from src.FirePackage import fdflect
 
 datFiles=glob.glob('Data/*.dat')
 
-st.header("Concrete deck exposed to uniformly distributed fire")
+st.header("Concrete deck exposed to segmently distributed fire")
+st.markdown(''' 
+    This page allows you to estimate the deflection for a span partly exposed to fire. This is done by specifying the (arbitrary many) sections exposed to fire below.
+            It should be noted that the model do not assumed the spread of the temperature and better results may be obtained by "extending" the segements to account for this.
+    ''')
 st.divider()
 
 col1, col2, col3 = st.columns(3)
@@ -31,7 +35,11 @@ for i in fs:
 res2=fdflect(span=sp, FS=FSinp, Time=ti2, datafile=dfile)
 #st.write("Maximum deflection", round(1000*res['Umax'],0), 'mm')
 
-st.metric(label = 'Max. Deflection', value=str(round(1000*res2['Umax'],0))+ 'mm')
+col1, col2, col3 = st.columns(3)
+with col1:
+    st.metric(label = 'Max. Deflection', value=str(round(1000*res2['Umax'],0))+ 'mm')
+with col2:
+     st.metric(label = 'span/50', value=str(round(-sp*1000/50,0))+ 'mm')
 
 fig, ax = plt.subplots()
 fig.set_figheight(2)
