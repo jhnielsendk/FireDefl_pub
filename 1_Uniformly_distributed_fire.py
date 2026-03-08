@@ -12,7 +12,7 @@ st.markdown('''
     This page allows you to estimate the deflection for a span fully exposed to fire. You can set the time the fire have lasted and select the datasets (different cross sections) to be used.
     ''')
 st.divider()
-st.write('Maximum deflection as a function of span. Fire assumed under full span')
+
 
 col1, col2, col3 = st.columns(3)
 with col1:
@@ -35,7 +35,8 @@ with col2:
     
 # res = fdflect()
 # st.write(res['Umax'])
-
+st.divider()
+st.write('Maximum deflection as a function of span:')
 colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k' ]
 fig2, ax2 = plt.subplots()
 fig2.set_figheight(4)
@@ -70,5 +71,10 @@ st.pyplot(fig2)
 
 st.divider()
 
+st.write('Cross sections for selected data:')
 
+for dfile in data:
+     img = dfile.replace('.dat','.png')
+     st.image(img, caption=['Concrete deck cross-section for: '+dfile])
 
+st.divider()

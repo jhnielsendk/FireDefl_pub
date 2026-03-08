@@ -13,16 +13,24 @@ st.markdown('''
     ''')
 st.divider()
 
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns([1, 2])
 with col1:
      dfile = st.selectbox('select datafile', tuple(datFiles), index=3)
 with col2:
+     img = dfile.replace('.dat','.png')
+     st.image(img, caption=['Concrete deck cross-section for: '+dfile])
+
+col1, col2, col3 = st.columns(3)
+#with col1:
+#     dfile = st.selectbox('select datafile', tuple(datFiles), index=3)
+with col1:
      sp = st.number_input("Span length [m]:", min_value=0.0, value=8.0, step=0.5, format="%.2f")
-with col3:
+with col2:
      ti2 = st.number_input("Time frame [s]:", min_value=0, max_value=7200, value=3600, step=100, key='TimeSegments')
+with col3:
+     fs1 = st.text_input("fire sections [m]:", value='(0,'+str(0.2*sp)+'); ('+str(0.8*sp)+','+str(sp)+')', help='Use the format: (x1,x2); (x3,x4); ... to specify fire exposed segments between x1 and x2 and between x3 and x4, and no fire on the remaining segments')
 
-fs1 = st.text_input("fire sections [m]:", value='(0,'+str(0.2*sp)+'); ('+str(0.8*sp)+','+str(sp)+')', help='Use the format: (x1,x2); (x3,x4); ... to specify fire exposed segments between x1 and x2 and between x3 and x4, and no fire on the remaining segments')
-
+st.divider()
 
 fs = fs1.split(';')
 
@@ -40,7 +48,7 @@ with col1:
     st.metric(label = 'Max. Deflection', value=str(round(1000*res2['Umax'],0))+ 'mm')
 with col2:
      st.metric(label = 'span/50', value=str(round(-sp*1000/50,0))+ 'mm')
-
+st.divider()
 fig, ax = plt.subplots()
 fig.set_figheight(2)
 plt.plot([0, sp],[0, 0], color = 'blue', lw=1.0)
