@@ -1,5 +1,9 @@
 import streamlit as st
 import glob
+import matplotlib.pyplot as plt
+import numpy as np
+
+import FirePackage as fp
 
 st.header("Concrete deck deflection due to fire")
 datFiles=glob.glob('Data/*.dat')
@@ -25,3 +29,36 @@ with col2:
         datFiles,
         default=datFiles
         )
+    
+
+
+colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k' ]
+fig2, ax2 = plt.subplots()
+fig2.set_figheight(4)
+for no, datfile in enumerate(data):
+    pl = {'span': [],
+        'maxU': [],
+        'L50':[]}
+    for s in np.linspace(sp_min,sp_max,sp_step):
+        FSinp_p=[(0,s)]
+
+        res1=fp.fdflect(span=s, FS=FSinp_p, Time=ti, datafile=datfile)
+        pl['span'].append(s)
+        pl['maxU'].append(res1['Umax'])
+        pl['L50'].append(-s/50)
+        #res=fdflect(span=sp)
+        #print('span [m]:'+str(sp), 'Umax: '+str(round(res['Umax'],2)), 'L/50 = '+str(sp/50))
+
+    color = colors[no]
+    #st.write(color)
+    plt.plot(pl['span'],pl['maxU'], color=color, lw=1.0, linestyle='solid', label=datfile)
+    #st.write("plot")
+
+
+plt.plot(pl['span'],pl['L50'], color='blue', lw=1.0, linestyle='dotted', label='span/50')
+
+plt.xlabel('Span [m]')
+plt.ylabel('max. Deflection [m]')
+plt.legend()
+plt.grid()
+st.pyplot(fig2)
