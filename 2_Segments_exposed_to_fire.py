@@ -17,7 +17,7 @@ with col2:
 with col3:
      ti2 = st.number_input("Time frame [s]:", min_value=0, max_value=7200, value=3600, step=100, key='TimeSegments')
 
-fs1 = st.text_input("fire sections [m]:", value='(0,'+str(sp)+')', help='Use the format: (x1,x2); (x3,x4); ... to specify fire exposed segments between x1 and x2 and between x3 and x4, and no fire on the remaining segments')
+fs1 = st.text_input("fire sections [m]:", value='(0,'+str(0.2*sp)+'); ('+str(0.8*sp)+','+str(sp)+')', help='Use the format: (x1,x2); (x3,x4); ... to specify fire exposed segments between x1 and x2 and between x3 and x4, and no fire on the remaining segments')
 
 
 fs = fs1.split(';')
