@@ -1,1 +1,5 @@
-streamlit==1.55.0
+matplotlib
+numpy
+pandas
+scipy
+streamlit
