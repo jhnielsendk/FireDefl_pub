@@ -30,7 +30,7 @@ with col2:
     data = st.multiselect(
         "Select (multiple) datasets for plot below",
         datFiles,
-        default=datFiles
+        default='Data/Ex32.dat'#datFiles
         )
     
 # res = fdflect()
