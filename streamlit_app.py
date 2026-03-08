@@ -95,3 +95,5 @@ with col2:
         default=datFiles
         )
     
+res = fdflect()
+st.write(res['Umax'])
