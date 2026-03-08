@@ -2,6 +2,7 @@ import streamlit as st
 import glob
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.interpolate import interp1d
 
 def fdflect(Time=3600, 
             datafile='Data/Ex32.dat',
