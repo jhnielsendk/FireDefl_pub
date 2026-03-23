@@ -3,6 +3,7 @@ import glob
 import matplotlib.pyplot as plt
 import numpy as np
 from src.FirePackage import fdflect
+import pandas as pd
 
 datFiles=glob.glob('Data/*.dat')
 
@@ -64,6 +65,19 @@ plt.xlabel('position [m]')
 plt.ylabel('Deflection [m]')
 plt.grid()
 st.pyplot(fig)
+
+df=pd.DataFrame(res2)
+df.rename(columns={'xc':'position', 'yc':'Deflection'})
+csv = df.to_csv(columns=['xc', 'yc'], index=False).encode('utf-8')
+st.download_button(
+     label='Download CSV',
+     data=csv,
+     file_name='Data.csv',
+     mime="text/csv",
+     icon=":material/download:",
+     )
+
+st.divider()
 
 pl2 = {'Time': [],
     'Umax': [],
